@@ -6,6 +6,7 @@ terraform {
   backend "s3" {
     bucket = "vilelf-tfstates"
     key    = "api_desafio_devops/terraform.tfstate"
+    region = "us-east-1"
   }
 }
 
