@@ -1,2 +1,9 @@
+# Python
 env
 __pycache__
+
+# Terraform
+**/.terraform/*
+
+*.tfstate
+*.tfstate.*
