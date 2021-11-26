@@ -1,0 +1,27 @@
+name: "Provision ECS Cluster and deploy the application"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  provisioning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup AWS Credentials
+        uses: actions/setup-aws-cli@v1
+        with:
+          aws_access_key_id: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          aws_secret_access_key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          region: us-east-1
+
+      - run: terraform init
+
+      - run: terraform validate
+
+      - run: terraform plan -var-file=variables.tfvars -out=tfplan
+
+      - run: terraform apply tfplan
