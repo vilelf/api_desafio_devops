@@ -10,11 +10,6 @@ terraform {
   }
 }
 
-
-module "groundwork" {
-  source = "./modules/groundwork"
-}
-
 module "ecs" {
   source = "./modules/ecs"
 }
