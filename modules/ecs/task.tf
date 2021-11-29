@@ -1,5 +1,6 @@
 resource "aws_ecs_task_definition" "task" {
   family = "teste"
+  requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
       "cpu": 128,
