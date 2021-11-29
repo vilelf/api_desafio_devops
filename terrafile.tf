@@ -17,5 +17,5 @@ module "ecs" {
 }
 
 output "ecr_repo" {
-  value = module.ecs.outputs.ecr_repo
+  value = module.ecs.ecr_repo
 }
