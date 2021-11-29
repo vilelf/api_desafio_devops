@@ -19,5 +19,5 @@ module "ecr" {
 }
 
 variable "tag" {
-  type = "string"
+  type = string
 }
