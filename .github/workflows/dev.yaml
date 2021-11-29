@@ -26,6 +26,9 @@ jobs:
 
       - run: terraform apply tfplan
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Build docker image
         run: |
           export ECR_REPO=$(terraform output ecr_repo)
