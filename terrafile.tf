@@ -13,7 +13,3 @@ terraform {
 module "ecs" {
   source = "./modules/ecs"
 }
-
-variable "tag" {
-  type = string
-}
