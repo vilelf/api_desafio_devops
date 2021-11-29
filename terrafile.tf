@@ -15,3 +15,7 @@ module "ecs" {
 
   tag = "latest"
 }
+
+output "ecr_repo" {
+  value = module.ecs.outputs.ecr_repo
+}
