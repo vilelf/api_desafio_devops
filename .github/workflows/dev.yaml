@@ -31,5 +31,5 @@ jobs:
 
       - name: Build docker image
         run: |
-          export ECR_REPO=$(terraform output ecr_repo)
+          export ECR_REPO=$(terraform output ecr_repo | tr -d '"')
           docker build -t $ECR_REPO .
