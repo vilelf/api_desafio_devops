@@ -28,14 +28,21 @@ jobs:
 
       - name: Build docker image
         run: |
-          export ECR_REPO_URL=$(terraform output ecr_repo | tr -d '"')
           docker build -t api_desafio_devops .
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      - name: Set ecr_repo_url
+        shell: bash
+        run: echo "##[set-output name=ecr_repo_url;]$(terraform output ecr_repo | tr -d '"')"
+        id: output-ecr_repo
 
       - name: Tag docker image
-        run: docker tag api_desafio_devops:latest $ECR_REPO_URL:latest
+        run: |
+          docker tag api_desafio_devops:latest ${{ steps.output-ecr_repo.outputs.ecr_repo_url }}:latest
+
+      - name: Login ECR
+        run: | 
+            ecr_repo_url
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.output-ecr_repo.outputs.ecr_repo_url }}
 
       - name: Push docker image to ECR
-        run: docker push $ECR_REPO
+        run: docker push ${{ steps.output-ecr_repo.outputs.ecr_repo_url }}
