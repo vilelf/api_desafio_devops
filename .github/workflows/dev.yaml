@@ -9,7 +9,7 @@ jobs:
   provisioning:
     runs-on: ubuntu-latest
     env:
-      TF_VAR_tag: "latest"
+      TF_VAR_tag: latest
     steps:
       - uses: actions/checkout@v2
 
