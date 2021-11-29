@@ -29,13 +29,13 @@ jobs:
       - name: Build docker image
         run: |
           export ECR_REPO_URL=$(terraform output ecr_repo | tr -d '"')
-          docker build -t $ECR_REPO_URL .
+          docker build -t api_desafio_devops .
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
 
       - name: Tag docker image
-        run: docker tag $ECR_REPO_URL:latest
+        run: docker tag api_desafio_devops:latest $ECR_REPO_URL:latest
 
       - name: Push docker image to ECR
         run: docker push $ECR_REPO
