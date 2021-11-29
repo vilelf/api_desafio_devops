@@ -17,3 +17,7 @@ module "ecs" {
 module "ecr" {
   source = "./modules/ecr"
 }
+
+variable "tag" {
+  type = "string"
+}
