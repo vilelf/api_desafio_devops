@@ -6,7 +6,7 @@ resource "aws_ecs_service" "service" {
   launch_type = "FARGATE"
 
   load_balancer {
-    name = "api_desafio_devops_lb"
+    elb_name = "api_desafio_devops_lb"
     container_name = "api_desafio_devops"
     container_port = 8000
   }
