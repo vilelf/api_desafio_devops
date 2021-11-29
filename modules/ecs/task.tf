@@ -1,5 +1,6 @@
 resource "aws_ecs_task_definition" "task" {
   family = "teste"
+  network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
