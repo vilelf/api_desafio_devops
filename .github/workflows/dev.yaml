@@ -7,9 +7,7 @@ on:
 
 jobs:
   provisioning:
-    runs-on: ubuntu-latest
-    env:
-      TF_VAR_tag: latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
@@ -28,4 +26,7 @@ jobs:
 
       - run: terraform apply tfplan
 
-  
+      - name: Build docker image
+        run: |
+          export ECR_REPO=$(terraform output ecr_repo)
+          docker build -t $ECR_REPO .
