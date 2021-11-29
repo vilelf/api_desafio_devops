@@ -12,4 +12,6 @@ terraform {
 
 module "ecs" {
   source = "./modules/ecs"
+
+  tag = "latest"
 }
