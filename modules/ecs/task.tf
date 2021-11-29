@@ -1,4 +1,5 @@
 resource "aws_ecs_task_definition" "task" {
+  family = "teste"
   container_definitions = jsonencode([
     {
       "cpu": 128,
