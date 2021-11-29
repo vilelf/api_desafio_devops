@@ -12,6 +12,8 @@ terraform {
 
 module "ecs" {
   source = "./modules/ecs"
+
+  ecr_repo = module.ecr.aws_ecr_repository.repo.repository_url
 }
 
 module "ecr" {
