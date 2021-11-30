@@ -6,8 +6,20 @@ resource "aws_ecs_service" "service" {
   launch_type = "FARGATE"
 
   load_balancer {
-    elb_name = "api_desafio_devops_lb"
     container_name = "api_desafio_devops"
     container_port = 8000
+    target_group_arn = aws_lb_target_group.api_tg.arn
+  }
+}
+
+resource "aws_security_group" "lb" {
+  name        = "load-balancer"
+  vpc_id = aws_vpc.main.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
