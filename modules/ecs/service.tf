@@ -10,6 +10,15 @@ resource "aws_ecs_service" "service" {
     container_port = 8000
     target_group_arn = aws_lb_target_group.api_tg.arn
   }
+
+  network_configuration {
+    security_groups = [aws_security_group.lb.id]
+    subnets = [
+      aws_subnet.subnet_a.id, 
+      aws_subnet.subnet_b.id, 
+      aws_subnet.subnet_c.id
+    ]
+  }
 }
 
 resource "aws_security_group" "lb" {

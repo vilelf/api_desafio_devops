@@ -4,11 +4,18 @@ resource "aws_ecs_task_definition" "task" {
   requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
-      "cpu": 128,
+      "cpu": 256,
       "essential": true,
+      "networkMode": "awsvpc",
       "image": format("%s:%s", aws_ecr_repository.repo.repository_url, var.tag),
-      "memory": 128,
-      "name": "api_desafio_devops"
+      "memory": 512,
+      "name": "api_desafio_devops",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000
+        }
+      ],
     }
   ])
 
