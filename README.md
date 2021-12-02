@@ -33,3 +33,4 @@
 - Usar HTTPS para o subdomínio
 - Adicionar tags para melhorar organização de acordo com ambiente, aplicação, etc
 - Criar testes para infra usando Terragrunt
+- Separar o módulo de ECS em outro repo
