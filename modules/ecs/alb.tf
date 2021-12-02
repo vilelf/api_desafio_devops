@@ -3,25 +3,27 @@ resource "aws_alb" "alb" {
   security_groups = [aws_security_group.lb.id]
 
   subnets = [
-    aws_subnet.subnet_a.id, 
-    aws_subnet.subnet_b.id, 
-    aws_subnet.subnet_c.id
+    aws_default_subnet.default_az1.id, 
+    aws_default_subnet.default_az2.id
   ]
 }
 
 resource "aws_lb_target_group" "api_tg" {
   name = "api-desafio-devops"
-  port = 8000
+  port = 80
   protocol = "HTTP"
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_default_vpc.default.id
   target_type = "ip"
 
-  depends_on = [aws_alb.alb]
+  lifecycle {
+    create_before_destroy = true
+  }
+
 }
 
 resource "aws_lb_listener" "api_listener" {
   load_balancer_arn = aws_alb.alb.arn
-  port = 8000
+  port = 80
   protocol = "HTTP"
 
   default_action {

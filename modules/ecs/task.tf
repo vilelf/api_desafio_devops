@@ -12,14 +12,14 @@ resource "aws_ecs_task_definition" "task" {
       "name": "api_desafio_devops",
       "portMappings": [
         {
-          "containerPort": 8000,
-          "hostPort": 8000
+          "containerPort": 80,
+          "hostPort": 80
         }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "cloudwatch-teste",
+          "awslogs-group": "/ecs/teste",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "api-desafio-devops"
         }

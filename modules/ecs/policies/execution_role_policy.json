@@ -4,12 +4,12 @@
         {
             "Effect": "Allow",
             "Action": [
-            "ecr:GetAuthorizationToken",
-            "ecr:BatchCheckLayerAvailability",
-            "ecr:GetDownloadUrlForLayer",
-            "ecr:BatchGetImage",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents"
+            "ecr:*",
+            "ecs:*",
+            "logs:*",
+            "SSM:*",
+            "secretsmanager:*",
+            "kms:*"
             ],
             "Resource": "*"
         }

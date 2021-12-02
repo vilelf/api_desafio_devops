@@ -19,3 +19,7 @@ module "ecs" {
 output "ecr_repo" {
   value = module.ecs.ecr_repo
 }
+
+output "subdominio" {
+  value = module.ecs.subdominio
+}

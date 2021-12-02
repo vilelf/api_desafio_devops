@@ -1,0 +1,10 @@
+.github
+.terraform
+env
+modules
+.terraform.lock.hcl
+.gitignore
+terrafile.tf
+tfplan
+.git
+.env

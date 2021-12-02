@@ -7,23 +7,31 @@ resource "aws_ecs_service" "service" {
 
   load_balancer {
     container_name = "api_desafio_devops"
-    container_port = 8000
+    container_port = 80
     target_group_arn = aws_lb_target_group.api_tg.arn
   }
 
   network_configuration {
     security_groups = [aws_security_group.lb.id]
+    assign_public_ip = true
     subnets = [
-      aws_subnet.subnet_a.id, 
-      aws_subnet.subnet_b.id, 
-      aws_subnet.subnet_c.id
+      aws_default_subnet.default_az1.id, 
+      aws_default_subnet.default_az2.id
     ]
   }
 }
 
 resource "aws_security_group" "lb" {
   name        = "load-balancer"
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_default_vpc.default.id
+
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 
   egress {
     from_port   = 0
