@@ -12,5 +12,14 @@ terraform {
 
 module "ecs" {
   source = "./modules/ecs"
+
+  tag = "latest"
 }
 
+output "ecr_repo" {
+  value = module.ecs.ecr_repo
+}
+
+output "subdominio" {
+  value = module.ecs.subdominio
+}

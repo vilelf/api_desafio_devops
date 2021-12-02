@@ -7,7 +7,7 @@ on:
 
 jobs:
   provisioning:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
@@ -25,3 +25,23 @@ jobs:
       - run: terraform plan -out=tfplan
 
       - run: terraform apply tfplan
+
+      - name: Build docker image
+        run: |
+          docker build -t api_desafio_devops .
+
+      - name: Set ecr_repo_url
+        shell: bash
+        run: echo "##[set-output name=ecr_repo_url;]$(terraform output ecr_repo | tr -d '"')"
+        id: output-ecr_repo
+
+      - name: Tag docker image
+        run: |
+          docker tag api_desafio_devops:latest ${{ steps.output-ecr_repo.outputs.ecr_repo_url }}:latest
+
+      - name: Login ECR
+        run: | 
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.output-ecr_repo.outputs.ecr_repo_url }}
+
+      - name: Push docker image to ECR
+        run: docker push ${{ steps.output-ecr_repo.outputs.ecr_repo_url }}
