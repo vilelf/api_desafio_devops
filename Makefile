@@ -11,7 +11,7 @@ build:
 	docker build -t api_desafio_devops .
 
 up:
-	docker run -it 80:80 api_desafio_devops
+	docker run -it -p 80:80 api_desafio_devops
 
 terraform-init:
 	docker run --rm -v $$PWD:/app -v $$HOME/.ssh/:/root/.ssh/ -w /app/ -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) init -upgrade=true
